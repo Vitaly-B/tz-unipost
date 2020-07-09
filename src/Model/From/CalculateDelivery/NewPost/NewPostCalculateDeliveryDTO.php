@@ -5,57 +5,58 @@ declare(strict_types=1);
 namespace App\Model\From\CalculateDelivery\NewPost;
 
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Model\Api\NewPost\GetCities\CityDTO;
 
 class NewPostCalculateDeliveryDTO
 {
 
     /**
      * @Serializer\SerializedName("CitySender")
-     * @Serializer\Type("string")
+     * @Serializer\Type(CityDTO::class)
+     * @Assert\NotNull()
      */
-    public string $citySender;
+    public ?CityDTO $citySender = null;
 
     /**
      * @Serializer\SerializedName("CityRecipient")
-     * @Serializer\Type("string")
+     * @Serializer\Type(CityDTO::class)
+     * @Assert\NotNull()
      */
-    public string $cityRecipient;
+    public ?CityDTO $cityRecipient = null;
 
     /**
      * @Serializer\SerializedName("Weight")
-     * @Serializer\Type("integer")
+     * @Serializer\Type("float")
+     * @Assert\NotBlank()
      */
-    public int $weight;
+    public ?float $weight = null;
 
     /**
      * @Serializer\SerializedName("ServiceType")
      * @Serializer\Type("string")
+     * @Assert\NotBlank()
      */
-    public string $serviceType;
+    public ?string $serviceType = null;
 
     /**
      * @Serializer\SerializedName("Cost")
-     * @Serializer\Type("integer")
+     * @Serializer\Type("float")
+     * @Assert\NotBlank()
      */
-    public int $cost;
+    public ?float $cost = null;
 
     /**
      * @Serializer\SerializedName("CargoType")
      * @Serializer\Type("string")
+     * @Assert\NotBlank()
      */
-    public string $CargoType;
+    public ?string $cargoType = null;
 
     /**
      * @Serializer\SerializedName("SeatsAmount")
      * @Serializer\Type("integer")
+     * @Assert\NotBlank()
      */
-    public int $seatsAmount;
-
-    /**
-     * @Serializer\SerializedName("PackCalculate")
-     * @Serializer\Type(PackCalculate::class)
-     */
-    public PackCalculate $packCalculate;
-
-
+    public ?int $seatsAmount = null;
 }

@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\Api\NewPost\GetCities;
 
-
+use App\Model\Api\NewPost\BaseResponseDTO;
 use JMS\Serializer\Annotation as Serializer;
 
-class GetCitiesResponseDTO
+class GetCitiesResponseDTO extends BaseResponseDTO
 {
-    /**
-     * @Serializer\Type("boolean")
-     */
-    public bool $success = false;
-
     /**
      * @var CityDTO[]
      * @Serializer\Type("array<App\Model\Api\NewPost\GetCities\CityDTO>")

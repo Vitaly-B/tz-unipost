@@ -3,8 +3,16 @@
 {% block content %}
 
     <h1>Расчет стоимости доставки Новая почта</h1>
+    {% if  deliveryCoast is not null %}
+        <div class="alert alert-success">
+            Оценочная стоимость: {{ deliveryCoast.assessedCost }}<br/>
+            Cтоимость: {{ deliveryCoast.cost }}
+        </div>
+    {% endif %}
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">Рассчитать стоимость</button>
+    <button type="reset" class="btn btn-secondary">Очистить</button>
     {{ form_end(form) }}
 {% endblock %}
