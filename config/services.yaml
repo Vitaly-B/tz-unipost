@@ -38,3 +38,6 @@ services:
         arguments:
             $apiKey: '%env(NEW_POST_API_KEY)%'
             $httpClient: '@api.http.client.new-post'
+
+    App\Service\CalculateDelivery\Form\CalculateDeliveryFormFactoryInterface:
+        class: App\Service\CalculateDelivery\Form\CalculateDeliveryFormFactory
