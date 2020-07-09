@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\CalculateDelivery;
 
+use App\Exceptions\ValidationErrorException;
 use App\Model\Api\NewPost\GetDocumentPrice\DeliveryCostDTO;
 use App\Model\Api\NewPost\GetDocumentPrice\GetDocumentPriceRequestDTO;
 use App\Model\DeliveryCost;
@@ -30,7 +31,7 @@ class CalculateDeliveryService implements CalculateDeliveryInterface
     {
         $error = $this->validator->validate($dataDTO);
         if (count($error) > 0) {
-            throw new CalculateDeliveryException('Data object not valid');
+            throw new ValidationErrorException($error, 'Validation errors');
         }
 
         if ($dataDTO instanceof NewPostCalculateDeliveryDTO) {
@@ -47,7 +48,7 @@ class CalculateDeliveryService implements CalculateDeliveryInterface
                 ));
 
                 if (!$response->success) {
-                    throw new CalculateDeliveryException('New post request api error');
+                    throw new CalculateDeliveryException('New post unsuccessful api request');
                 }
 
                 if (count($response->data) === 0) {

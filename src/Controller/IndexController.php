@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Constants\DeliveryProvider;
+use App\Exceptions\ValidationErrorException as ValidationErrorExceptionAlias;
 use App\Service\CalculateDelivery\CalculateDeliveryException;
 use App\Service\CalculateDelivery\CalculateDeliveryInterface;
 use App\Service\CalculateDelivery\Form\CalculateDeliveryFormFactoryException;
@@ -31,23 +32,30 @@ class IndexController extends AbstractController
 
     /**
      * @Route("/")
-     *
-     * @throws CalculateDeliveryFormFactoryException
-     * @throws CalculateDeliveryException
      */
     public function indexAction(Request $request): Response
     {
-        $form = $this->formFactory->create(DeliveryProvider::NEW_POST);
-        $form->handleRequest($request);
+        try {
+            $form = $this->formFactory->create(DeliveryProvider::NEW_POST);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $deliveryCoast = $this->calculateDeliveryService->getCoast($form->getData());
+            $viewForm = $form->createView();
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $deliveryCoast = $this->calculateDeliveryService->getCoast($form->getData());
+            }
+        } catch (CalculateDeliveryFormFactoryException | CalculateDeliveryException $e) {
+            $hasOtherErrors = true;
+        } catch (ValidationErrorExceptionAlias $validationErrorException) {
+            $validationErrors = $validationErrorException->errors;
         }
 
         return $this->render(
             'index/index.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $viewForm ?? null,
+                'validationErrors' => $validationErrors ?? null,
+                'hasOtherErrors' => $hasOtherErrors ?? false,
                 'deliveryCoast' => $deliveryCoast ?? null,
             ]
         );

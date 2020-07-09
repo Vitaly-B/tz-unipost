@@ -3,6 +3,23 @@
 {% block content %}
 
     <h1>Расчет стоимости доставки Новая почта</h1>
+
+    {% if  validationErrors is not null %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in validationErrors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if hasOtherErrors %}
+        <div class="alert alert-danger">
+            Простите за временные неудобства, попробуйте позже
+        </div>
+    {% endif %}
+
     {% if  deliveryCoast is not null %}
         <div class="alert alert-success">
             Оценочная стоимость: {{ deliveryCoast.assessedCost }}<br/>
@@ -10,9 +27,11 @@
         </div>
     {% endif %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-success">Рассчитать стоимость</button>
-    <button type="reset" class="btn btn-secondary">Очистить</button>
-    {{ form_end(form) }}
+    {% if  form is not null %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success">Рассчитать стоимость</button>
+        <button type="reset" class="btn btn-secondary">Очистить</button>
+        {{ form_end(form) }}
+    {% endif %}
 {% endblock %}

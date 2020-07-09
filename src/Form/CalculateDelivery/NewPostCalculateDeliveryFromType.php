@@ -63,7 +63,6 @@ class NewPostCalculateDeliveryFromType extends AbstractType
             'choices' => [
                 'Посылки' => 'Parcel',
                 'Грузы' => 'Cargo',
-                'Документы' => 'Documents',
             ],
         ])->add('weight', NumberType::class, [
             'required' => true,
