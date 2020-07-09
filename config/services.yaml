@@ -25,3 +25,16 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+    api.http.client.new-post:
+        class: GuzzleHttp\Client
+        arguments:
+            - base_uri: '%env(NEW_POST_API_ENDPOINT)%'
+              verify: true
+
+    App\Service\Api\NewPost\NewPostApiServiceInterface:
+        class: App\Service\Api\NewPost\HttpNewPostApiService
+        arguments:
+            $apiKey: '%env(NEW_POST_API_KEY)%'
+            $httpClient: '@api.http.client.new-post'
