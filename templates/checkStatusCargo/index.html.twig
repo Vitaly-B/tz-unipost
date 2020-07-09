@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h1>Проверка статуса посылки</h1>
+    {% if  validationErrors is not null %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in validationErrors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if hasOtherErrors %}
+        <div class="alert alert-danger">
+            Простите за временные неудобства, попробуйте позже
+        </div>
+    {% endif %}
+
+
+    {% if cargoStatus %}
+        <div class="alert alert-success">
+            Статус: {{ cargoStatus.status }}<br/>
+            {% if cargoStatus.scheduledDeliveryDate %}
+                Дата доставки: {{ cargoStatus.scheduledDeliveryDate.format('Y-m-d H:i:s') }}<br/>
+            {% endif %}
+            {% if cargoStatus.citySender and cargoStatus.cityRecipient %}
+                Маршрут: {{ cargoStatus.citySender }} - {{ cargoStatus.cityRecipient }}<br/>
+            {% endif %}
+            {% if cargoStatus.recipientAddress %}
+                Адрес доставки: {{ cargoStatus.recipientAddress }}<br/>
+            {% endif %}
+
+        </div>
+    {% endif %}
+
+    {% if  form is not null %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success">Проверить статус</button>
+        <button type="reset" class="btn btn-secondary">Очистить</button>
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}

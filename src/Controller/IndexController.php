@@ -31,7 +31,11 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/")
+     * @Route("/", name="home")
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function indexAction(Request $request): Response
     {

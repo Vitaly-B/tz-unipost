@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Form\CalculateDelivery;
 
-use App\Model\Api\NewPost\GetCities\CityDTO;
 use App\Model\From\CalculateDelivery\NewPost\NewPostCalculateDeliveryDTO;
 use App\Service\Api\NewPost\NewPostApiServiceInterface;
-use phpDocumentor\Reflection\DocBlock\Tag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

@@ -29,6 +29,7 @@ class NewPostCalculateDeliveryDTO
      * @Serializer\SerializedName("Weight")
      * @Serializer\Type("float")
      * @Assert\NotBlank()
+     * @Assert\GreaterThan(0.1)
      */
     public ?float $weight = null;
 
